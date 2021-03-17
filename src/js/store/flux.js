@@ -1,45 +1,46 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			people: [],
+			vehicles: [],
+			planets: [],
+			favorites: 0,
+			idSelected: 0
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
+			setFavCount: async () => {
 				const store = getStore();
+				setStore({ favorites: store.favorites + 1 });
+			},
+			setIdSelected: id => {
+				setStore({ idSelected: id });
+			},
+			loadPeopleData: () => {
+				const apiEndPoint = "https://akabab.github.io/starwars-api/api/all.json"; //"https://www.swapi.tech/api/people"
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+				fetch(apiEndPoint)
+					.then(res => res.json())
+					.then(data => setStore({ people: data }));
+				//.catch(err => console.error(err));
+			},
+			loadVehiclesData: () => {
+				const apiEndPoint = "https://www.swapi.tech/api/vehicles";
 
-				//reset the global store
-				setStore({ demo: demo });
+				fetch(apiEndPoint)
+					.then(res => res.json())
+					.then(data => setStore({ vehicles: data }));
+				//.catch(err => console.error(err));
+			},
+			loadPlanetsData: () => {
+				const apiEndPoint = "https://www.swapi.tech/api/planets";
+
+				fetch(apiEndPoint)
+					.then(res => res.json())
+					.then(data => setStore({ planets: data }));
+				//.catch(err => console.error(err));
 			}
 		}
 	};
 };
-
 export default getState;

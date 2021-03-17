@@ -1,0 +1,34 @@
+
+
+.scrolling-wrapper{
+    overflow-x: auto;
+  border-radius: 0.25rem;
+}
+img{
+    max-height: 50%;
+    max-width: 100%;
+}
+.card{
+    height: 600px;
+}
+
+/* Tamaño del scroll */
+.scrolling-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+ /* Estilos barra (thumb) de scroll */
+.scrolling-wrapper::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 4px;
+}
+ /* Estilos track de scroll */
+.scrolling-wrapper::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+.scrolling-wrapper::-webkit-scrollbar-track:hover, 
+.scrolling-wrapper::-webkit-scrollbar-track:active {
+  background: #ffc107;
+}

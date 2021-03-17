@@ -1,0 +1,3 @@
+[submodule "exercise-starwars-blog-reading-list"]
+	path = exercise-starwars-blog-reading-list
+	url = https://github.com/breatheco-de/exercise-starwars-blog-reading-list
