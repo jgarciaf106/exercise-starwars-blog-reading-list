@@ -4,13 +4,13 @@ import swLogo from "../../img/swLogo.png";
 import { Context } from "../store/appContext";
 
 export const Navbar = () => {
-	const { store } = useContext(Context);
+	const { actions, store } = useContext(Context);
 	return (
 		<nav className="navbar navbar-light bg-dark py-4">
 			<Link to="/">
 				<img src={swLogo} className="ml-5" style={{ height: "40px", width: "95px" }} />
 			</Link>
-			<div className="dropdown mr-5">
+			<div className="btn-group mr-5">
 				<button
 					className="btn btn-warning text-dark dropdown-toggle"
 					type="button"
@@ -19,19 +19,27 @@ export const Navbar = () => {
 					aria-haspopup="true"
 					aria-expanded="false">
 					Favorites
-					<i className="text-center bg-dark text-white mx-1 rounded"> {store.favCount} </i>
+					<i className="text-center bg-dark text-white mx-1 rounded"> {store.favorites.length} </i>
 				</button>
-				<div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-					<button className="dropdown-item" type="button">
-						Action
-					</button>
-					<button className="dropdown-item" type="button">
-						Another action
-					</button>
-					<button className="dropdown-item" type="button">
-						Something else here
-					</button>
-				</div>
+				<ul className="dropdown-menu">
+					{store.favorites.map((element, index) => {
+						const character = store.people.find(person => person.id === element).name;
+
+						return (
+							<li className="nav-link" key={index}>
+								<Link exact to="/detail" onClick={() => actions.setIdSelected(element)}>
+									{character}{" "}
+								</Link>
+								<i
+									className="far fa-trash-alt"
+									onClick={() => {
+										actions.setRemoveFavorite(index);
+									}}
+								/>
+							</li>
+						);
+					})}
+				</ul>
 			</div>
 		</nav>
 	);

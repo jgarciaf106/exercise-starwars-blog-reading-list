@@ -4,14 +4,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			people: [],
 			vehicles: [],
 			planets: [],
-			favorites: 0,
+			favorites: [],
 			idSelected: 0
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			setFavCount: async () => {
+			setFavorites: id => {
 				const store = getStore();
-				setStore({ favorites: store.favorites + 1 });
+				setStore(store.favorites.push(id));
+			},
+			setRemoveFavorite: toRemove => {
+				const store = getStore();
+				const updatedArray = store.favorites.filter((item, index) => index !== toRemove);
+				setStore({ favorites: updatedArray });
 			},
 			setIdSelected: id => {
 				setStore({ idSelected: id });
