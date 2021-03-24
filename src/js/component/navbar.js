@@ -23,12 +23,12 @@ export const Navbar = () => {
 				</button>
 				<ul className="dropdown-menu">
 					{store.favorites.map((element, index) => {
-						const character = store.people.find(person => person.id === element).name;
+						//const character = store.people.find(person => person.name === element).name;
 
 						return (
 							<li className="nav-link" key={index}>
 								<Link exact to="/detail" onClick={() => actions.setIdSelected(element)}>
-									{character}{" "}
+									{element}{" "}
 								</Link>
 								<i
 									className="far fa-trash-alt"

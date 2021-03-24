@@ -5,45 +5,64 @@ const getState = ({ getStore, getActions, setStore }) => {
 			vehicles: [],
 			planets: [],
 			favorites: [],
-			idSelected: 0
+			apiStatus: {
+				people: true,
+				vehicles: true,
+				planets: true
+			},
+			idSelected: ""
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			setFavorites: id => {
+			setFavorites: fav => {
 				const store = getStore();
-				setStore(store.favorites.push(id));
+
+				setStore(store.favorites.push(fav));
 			},
 			setRemoveFavorite: toRemove => {
 				const store = getStore();
 				const updatedArray = store.favorites.filter((item, index) => index !== toRemove);
+
 				setStore({ favorites: updatedArray });
 			},
-			setIdSelected: id => {
-				setStore({ idSelected: id });
+			setIdSelected: fav => {
+				setStore({ idSelected: fav });
 			},
-			loadPeopleData: () => {
+			loadPeopleData: async () => {
+				const store = getStore();
 				const apiEndPoint = "https://akabab.github.io/starwars-api/api/all.json"; //"https://www.swapi.tech/api/people"
 
-				fetch(apiEndPoint)
-					.then(res => res.json())
-					.then(data => setStore({ people: data }));
-				//.catch(err => console.error(err));
+				const response = await fetch(apiEndPoint);
+				if (response.ok === false) {
+					setStore((store.apiStatus["people"] = false));
+				} else {
+					const data = await response.json();
+					setStore({ people: data });
+				}
 			},
-			loadVehiclesData: () => {
-				const apiEndPoint = "https://www.swapi.tech/api/vehicles";
+			loadVehiclesData: async () => {
+				const store = getStore();
+				const apiEndPoint = "https://swapi.dev/api/vehicles/";
 
-				fetch(apiEndPoint)
-					.then(res => res.json())
-					.then(data => setStore({ vehicles: data }));
-				//.catch(err => console.error(err));
+				const response = await fetch(apiEndPoint);
+				if (response.ok === false) {
+					setStore((store.apiStatus["vehicles"] = false));
+				} else {
+					const data = await response.json();
+					setStore({ vehicles: data.results });
+				}
 			},
-			loadPlanetsData: () => {
-				const apiEndPoint = "https://www.swapi.tech/api/planets";
+			loadPlanetsData: async () => {
+				const store = getStore();
+				const apiEndPoint = "https://swapi.dev/api/planets/";
 
-				fetch(apiEndPoint)
-					.then(res => res.json())
-					.then(data => setStore({ planets: data }));
-				//.catch(err => console.error(err));
+				const response = await fetch(apiEndPoint);
+				if (response.ok === false) {
+					setStore((store.apiStatus["planets"] = false));
+				} else {
+					const data = await response.json();
+					setStore({ planets: data.results });
+				}
 			}
 		}
 	};

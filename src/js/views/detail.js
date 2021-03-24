@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 
 export const Detail = () => {
 	const { store } = useContext(Context);
-	const selected = store.people.find(person => person.id === store.idSelected);
+	const selected = store.people.find(person => person.name === store.idSelected);
 	return (
 		<div className="text-center bg-dark container">
 			<div className="card my-5 mx-5">
