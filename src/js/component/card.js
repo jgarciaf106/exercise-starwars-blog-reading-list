@@ -30,7 +30,7 @@ export const Card = props => {
 							<a
 								href="#"
 								className="btn btn-warning float-left"
-								onClick={() => actions.setIdSelected(props.obj.name)}>
+								onClick={() => actions.setIdSelected(props.obj)}>
 								Learn more!
 							</a>
 						</Link>
@@ -38,9 +38,15 @@ export const Card = props => {
 						<button
 							type="button"
 							className="btn btn-warning float-right"
-							onClick={() => actions.setFavorites(props.obj.name)}
-							disabled={store.favorites.includes(props.obj.name) ? true : false}>
-							<i className={store.favorites.includes(props.obj.name) ? "fas fa-heart" : "far fa-heart"} />
+							onClick={() => actions.setFavorites(props.obj)}
+							disabled={store.favorites.some(fav => fav.name === props.obj.name) ? true : false}>
+							<i
+								className={
+									store.favorites.some(fav => fav.name === props.obj.name)
+										? "fas fa-heart"
+										: "far fa-heart"
+								}
+							/>
 						</button>
 					</div>
 				</div>

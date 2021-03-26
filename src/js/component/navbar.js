@@ -28,7 +28,7 @@ export const Navbar = () => {
 						return (
 							<li className="nav-link" key={index}>
 								<Link exact to="/detail" onClick={() => actions.setIdSelected(element)}>
-									{element}{" "}
+									{element.name}{" "}
 								</Link>
 								<i
 									className="far fa-trash-alt"

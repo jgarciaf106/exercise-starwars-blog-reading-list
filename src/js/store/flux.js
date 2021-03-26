@@ -10,7 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				vehicles: true,
 				planets: true
 			},
-			idSelected: ""
+			idSelected: {}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
